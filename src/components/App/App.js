@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
+import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
 import Statistics from '../Statistics/Statistics';
+import Feedback from '../../utils/Feedback';
+import AppContainer from './App.styled';
+
+const options = Object.values(Feedback);
 
 export default class App extends Component {
   state = { good: 0, neutral: 0, bad: 0 };
+
+  handleFeedbackUpdate = e => {
+    const feedbackOption = e.target.textContent;
+
+    this.setState(state => ({
+      [feedbackOption]: state[feedbackOption] + 1,
+    }));
+  };
 
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
@@ -29,7 +41,11 @@ export default class App extends Component {
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
     return (
-      <div>
+      <AppContainer>
+        <FeedbackOptions
+          options={options}
+          onLeaveFeedback={this.handleFeedbackUpdate}
+        />
         <Statistics
           good={good}
           neutral={neutral}
@@ -37,7 +53,7 @@ export default class App extends Component {
           total={total}
           positivePercentage={positivePercentage}
         />
-      </div>
+      </AppContainer>
     );
   }
 }
