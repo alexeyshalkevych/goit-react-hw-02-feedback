@@ -3,6 +3,7 @@ import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
 import Section from '../Section/Section';
 import Statistics from '../Statistics/Statistics';
 import Feedback from '../../utils/Feedback';
+import Notification from '../Notification/Notification';
 import AppContainer from './App.styled';
 
 const options = Object.values(Feedback);
@@ -50,29 +51,19 @@ export default class App extends Component {
           />
         </Section>
         <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positivePercentage={positivePercentage}
-          />
+          {good || neutral || bad ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positivePercentage}
+            />
+          ) : (
+            <Notification message="No feedback given" />
+          )}
         </Section>
       </AppContainer>
     );
   }
 }
-
-//         <Section title="Statistics">
-//           {good || neutral || bad ? (
-//             <Statistics
-//               good={good}
-//               neutral={neutral}
-//               bad={bad}
-//               total={total}
-//               positivePercentage={positivePercentage}
-//             />
-//           ) : (
-//             <Notification message="No feedback given" />
-//           )}
-//         </Section>
