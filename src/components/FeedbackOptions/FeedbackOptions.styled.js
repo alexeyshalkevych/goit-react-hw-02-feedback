@@ -28,4 +28,8 @@ export const FeedbackButton = styled.button`
     background-color: #fff;
     border: 2px solid blue;
   }
+
+  :focus {
+    outline: none;
+  }
 `;
